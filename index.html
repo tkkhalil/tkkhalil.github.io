@@ -1,11 +1,120 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>El Balady</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>El Balady | Coming Soon</title>
+
+  <!-- Google Font (matches your LAU preference for Raleway) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Welcome to El Balady</h1>
-  <p>Website coming soon</p>
-  <a href="Al Baladi Menu.pdf" target="_blank">Open Items Menu</a>
+  <main class="page">
+    <header class="card header">
+      <img class="logo" src="el-balady-logo.png" alt="El Balady logo" />
+      <h1 class="title">El Balady</h1>
+      <p class="subtitle" dir="rtl">البلدي</p>
+      <p class="note">We’re getting our new website ready. In the meantime, contact us below.</p>
+
+      <a class="menuLink" href="Al Baladi Menu.pdf" target="_blank" rel="noopener">
+        View / Download Menu (PDF)
+      </a>
+    </header>
+
+    <section class="card formCard" aria-label="Contact form">
+      <h2 class="sectionTitle">Contact Us</h2>
+
+      <!--
+        IMPORTANT (Email sending):
+        A purely static page cannot send email directly without a form service or backend.
+        Option A (recommended for a temporary landing page): Formspree
+          1) Create a free Formspree form.
+          2) Replace the action URL below with your Formspree endpoint.
+          3) In Formspree settings, set notifications to: tkkhalil81@gmail.com
+
+        Option B: Netlify Forms (if you host on Netlify)
+          - Remove the action attribute, add: data-netlify="true"
+          - Keep the hidden "form-name" input.
+      -->
+
+      <form id="contactForm"
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST">
+        <input type="hidden" name="source" value="El Balady landing page" />
+
+        <div class="grid">
+          <label class="field">
+            <span>Name</span>
+            <input name="name" type="text" autocomplete="name" required />
+          </label>
+
+          <label class="field">
+            <span>Phone (optional)</span>
+            <input name="phone" type="tel" autocomplete="tel" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Email</span>
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+
+        <label class="field">
+          <span>Message</span>
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+
+        <button class="btn" type="submit">Send Message</button>
+
+        <p class="fineprint">
+          By sending this form, you agree that we may contact you back using the details provided.
+        </p>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> El Balady</span>
+    </footer>
+  </main>
+
+  <script>
+    // Small UX: show a friendly success/error message without leaving the page (works with Formspree).
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('status');
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    form.addEventListener('submit', async (e) => {
+      // If action is not set, fall back to normal submit.
+      if (!form.action || form.action.includes('YOUR_FORM_ID')) return;
+
+      e.preventDefault();
+      statusEl.textContent = 'Sending…';
+
+      try {
+        const data = new FormData(form);
+        const res = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.reset();
+          statusEl.textContent = 'Thank you! Your message has been sent.';
+        } else {
+          statusEl.textContent = 'Sorry—something went wrong. Please try again.';
+        }
+      } catch (err) {
+        statusEl.textContent = 'Network error. Please try again.';
+      }
+    });
+  </script>
 </body>
 </html>
