@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0f0c29"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="FitTrack"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<title>FitTrack — 7-Day Plan</title>
+
+<!-- Inline manifest via JS blob — no server needed -->
+<script>
+const manifestData = {
+  name: "FitTrack — 7-Day Fitness Plan",
+  short_name: "FitTrack",
+  description: "Your personal 7-day workout and meal tracker",
+  start_url: "./FitTrack.html",
+  display: "standalone",
+  background_color: "#0f0c29",
+  theme_color: "#0f0c29",
+  orientation: "portrait",
+  icons: [
+    { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%230f0c29'/%3E%3Ctext y='130' x='96' text-anchor='middle' font-size='110'%3E%F0%9F%8F%8B%EF%B8%8F%3C/text%3E%3C/svg%3E", sizes: "192x192", type: "image/svg+xml" },
+    { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%230f0c29'/%3E%3Ctext y='360' x='256' text-anchor='middle' font-size='300'%3E%F0%9F%8F%8B%EF%B8%8F%3C/text%3E%3C/svg%3E", sizes: "512x512", type: "image/svg+xml" }
+  ]
+};
+const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+const manifestURL = URL.createObjectURL(blob);
+const link = document.createElement('link');
+link.rel = 'manifest';
+link.href = manifestURL;
+document.currentScript.after(link);
+</script>
+
+<!-- Apple touch icon inline SVG -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='32' fill='%230f0c29'/%3E%3Ctext y='125' x='90' text-anchor='middle' font-size='100'%3E%F0%9F%8F%8B%EF%B8%8F%3C/text%3E%3C/svg%3E"/>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;overscroll-behavior:none;}
+  body{
+    background:linear-gradient(135deg,#0f0c29 0%,#302b63 50%,#24243e 100%);
+    background-attachment:fixed;
+    font-family:'DM Sans','Segoe UI',sans-serif;
+    color:#e2e8f0;
+    min-height:100vh;
+    padding-bottom:env(safe-area-inset-bottom,20px);
+  }
+  button{font-family:inherit;outline:none;}
+  input,textarea{font-family:inherit;outline:none;}
+  textarea{resize:vertical;}
+  ::-webkit-scrollbar{width:4px;height:4px;}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:4px;}
+  .sticky-header{
+    background:rgba(15,12,41,0.85);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    padding:14px 20px;
+    padding-top:calc(14px + env(safe-area-inset-top,0px));
+    position:sticky;top:0;z-index:100;
+  }
+  .install-banner{
+    display:none;
+    align-items:center;gap:10px;
+    background:linear-gradient(135deg,#1e3a5f,#1a2a4a);
+    border:1px solid #3B82F644;
+    border-radius:12px;margin:12px 16px 0;
+    padding:12px 14px;cursor:pointer;
+  }
+  .install-banner.show{display:flex;}
+  .chip{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:5px 11px;border-radius:20px;font-size:12px;
+    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+    color:#94a3b8;cursor:pointer;transition:all 0.2s;white-space:nowrap;
+  }
+  .chip:active{background:rgba(255,255,255,0.12);}
+  .tab-btn{
+    flex:1;padding:10px;border-radius:10px;
+    border:1.5px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.04);
+    color:#94a3b8;font-weight:600;font-size:13px;cursor:pointer;
+    transition:all 0.2s;
+  }
+  .tab-btn.active{color:#fff;}
+  .exercise-row{
+    display:flex;align-items:center;gap:14px;
+    padding:14px 16px;margin-bottom:8px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.06);
+    cursor:pointer;transition:all 0.2s;
+    -webkit-user-select:none;user-select:none;
+  }
+  .exercise-row:active{transform:scale(0.98);}
+  .check-box{
+    width:26px;height:26px;border-radius:8px;flex-shrink:0;
+    border:2px solid rgba(255,255,255,0.2);
+    background:transparent;
+    display:flex;align-items:center;justify-content:center;
+    transition:all 0.2s;
+  }
+  .meal-card{
+    margin-bottom:12px;padding:14px 16px;
+    background:rgba(255,255,255,0.04);
+    border-radius:12px;border:1px solid rgba(255,255,255,0.06);
+    transition:border-color 0.2s;
+  }
+  .meal-input{
+    flex:1;padding:9px 12px;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:8px;color:#e2e8f0;font-size:13px;
+  }
+  .meal-input::placeholder{color:#475569;}
+  .log-btn{
+    padding:9px 14px;border-radius:8px;
+    background:#22d3ee22;border:1px solid #22d3ee44;
+    color:#22d3ee;font-weight:700;font-size:13px;cursor:pointer;
+    white-space:nowrap;
+  }
+  .log-btn:active{background:#22d3ee33;}
+  .progress-bar-track{
+    width:100%;height:6px;
+    background:rgba(255,255,255,0.1);
+    border-radius:3px;overflow:hidden;
+  }
+  .progress-bar-fill{
+    height:100%;border-radius:3px;
+    transition:width 0.4s ease;
+  }
+  .day-btn{
+    flex:0 0 auto;padding:10px 14px;border-radius:12px;
+    border:2px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.04);
+    cursor:pointer;text-align:center;min-width:60px;
+    transition:all 0.2s;position:relative;
+  }
+  .day-btn:active{transform:scale(0.95);}
+  .notes-area{
+    width:100%;min-height:80px;padding:10px 14px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:10px;color:#e2e8f0;font-size:13px;
+  }
+  .notes-area::placeholder{color:#475569;}
+  .section-card{
+    padding:16px;background:rgba(255,255,255,0.04);
+    border-radius:12px;border:1px solid rgba(255,255,255,0.08);
+    margin-bottom:10px;
+  }
+  .tip-card{
+    padding:14px;background:rgba(255,255,255,0.05);
+    border-radius:12px;border:1px solid rgba(255,255,255,0.08);
+  }
+  .complete-banner{
+    text-align:center;padding:20px;
+    border-radius:12px;margin-top:8px;
+  }
+  #content{max-width:680px;margin:0 auto;padding:0 16px;}
+</style>
+</head>
+<body>
+
+<!-- Sticky Header -->
+<div class="sticky-header">
+  <div style="max-width:680px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <div style="font-size:20px;font-weight:800;letter-spacing:-0.5px;color:#fff;">🏋️ FitTrack</div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:2px;">Your 7-Day Plan</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:11px;color:#94a3b8;margin-bottom:4px;">Today's Progress</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="progress-bar-track" style="width:100px;">
+          <div class="progress-bar-fill" id="header-progress" style="width:0%;background:linear-gradient(90deg,#3B82F6,#a78bfa);"></div>
+        </div>
+        <span id="header-pct" style="font-size:13px;font-weight:700;color:#fff;">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Install Banner -->
+<div class="install-banner" id="install-banner">
+  <div style="font-size:28px;">📲</div>
+  <div style="flex:1;">
+    <div style="font-weight:700;font-size:14px;color:#fff;">Install FitTrack</div>
+    <div style="font-size:12px;color:#94a3b8;margin-top:2px;">Add to home screen for quick access</div>
+  </div>
+  <button id="install-btn" style="padding:8px 14px;border-radius:8px;background:#3B82F6;border:none;color:#fff;font-weight:700;font-size:13px;cursor:pointer;">Install</button>
+  <button id="dismiss-btn" style="background:none;border:none;color:#64748b;font-size:18px;cursor:pointer;padding:4px;">✕</button>
+</div>
+
+<!-- iOS install hint (shown only on iOS Safari) -->
+<div id="ios-hint" style="display:none;margin:12px 16px 0;padding:12px 14px;background:linear-gradient(135deg,#1e3a5f,#1a2a4a);border:1px solid #3B82F644;border-radius:12px;">
+  <div style="font-weight:700;color:#fff;font-size:13px;margin-bottom:4px;">📲 Install on iPhone/iPad</div>
+  <div style="font-size:12px;color:#94a3b8;line-height:1.6;">
+    Tap the <strong style="color:#3B82F6;">Share</strong> button (□↑) at the bottom of Safari, then tap <strong style="color:#3B82F6;">"Add to Home Screen"</strong>. FitTrack will appear as an app icon!
+  </div>
+</div>
+
+<div id="content">
+
+  <!-- Day Selector -->
+  <div style="display:flex;gap:6px;margin-top:20px;overflow-x:auto;padding-bottom:4px;" id="day-selector"></div>
+
+  <!-- Day Header -->
+  <div id="day-header" style="margin-top:20px;padding:20px;border-radius:16px;"></div>
+
+  <!-- Tabs -->
+  <div style="display:flex;gap:8px;margin-top:16px;">
+    <button class="tab-btn active" id="tab-workout" onclick="switchTab('workout')">💪 Workout</button>
+    <button class="tab-btn" id="tab-meals" onclick="switchTab('meals')">🥗 Meals</button>
+    <button class="tab-btn" id="tab-tips" onclick="switchTab('tips')">✅ Tips</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div id="tab-content" style="margin-top:16px;padding-bottom:32px;"></div>
+
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const DAYS_SHORT = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const DAYS_FULL  = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+
+const WORKOUT_DATA = {
+  Monday:    { focus:"Push — Chest, Shoulders & Triceps", emoji:"💪", color:"#3B82F6",
+    exercises:[
+      {name:"Push-Ups",           sets:3, reps:"10–15",     rest:"60s"},
+      {name:"Wide Push-Ups",      sets:3, reps:"10–12",     rest:"60s"},
+      {name:"Pike Push-Ups",      sets:3, reps:"8–12",      rest:"60s"},
+      {name:"Diamond Push-Ups",   sets:3, reps:"8–10",      rest:"60s"},
+      {name:"Shoulder Taps",      sets:3, reps:"16 taps",   rest:"45s"},
+      {name:"Tricep Dips (chair)",sets:3, reps:"10–12",     rest:"60s"},
+    ]},
+  Tuesday:   { focus:"Pull — Back & Biceps", emoji:"🏋️", color:"#10B981",
+    exercises:[
+      {name:"Doorframe Rows",        sets:3, reps:"10–12",   rest:"60s"},
+      {name:"Superman Hold",         sets:3, reps:"12 reps", rest:"60s"},
+      {name:"Towel Bicep Curl",      sets:3, reps:"12 reps", rest:"60s"},
+      {name:"Reverse Snow Angels",   sets:3, reps:"12 reps", rest:"45s"},
+      {name:"Plank Row",             sets:3, reps:"10 each", rest:"60s"},
+    ]},
+  Wednesday: { focus:"Legs & Glutes", emoji:"🦵", color:"#F59E0B",
+    exercises:[
+      {name:"Bodyweight Squats", sets:3, reps:"15–20",      rest:"60s"},
+      {name:"Reverse Lunges",    sets:3, reps:"10 each leg",rest:"60s"},
+      {name:"Glute Bridge",      sets:3, reps:"15 reps",    rest:"45s"},
+      {name:"Wall Sit",          sets:3, reps:"30–45 sec",  rest:"60s"},
+      {name:"Calf Raises",       sets:3, reps:"20 reps",    rest:"45s"},
+      {name:"Jump Squats",       sets:3, reps:"10 reps",    rest:"60s"},
+    ]},
+  Thursday:  { focus:"Active Recovery & Mobility", emoji:"🧘", color:"#8B5CF6",
+    exercises:[
+      {name:"Light Walk / Jog",    sets:"—", reps:"20–30 min",  rest:"—"},
+      {name:"Cat-Cow Stretch",     sets:"—", reps:"10 reps",    rest:"—"},
+      {name:"Hip Flexor Stretch",  sets:"—", reps:"30 sec each",rest:"—"},
+      {name:"Child's Pose",        sets:"—", reps:"60 sec",     rest:"—"},
+      {name:"Shoulder Circles",    sets:"—", reps:"10 each way",rest:"—"},
+      {name:"Hamstring Stretch",   sets:"—", reps:"30 sec each",rest:"—"},
+    ]},
+  Friday:    { focus:"Full Body Strength", emoji:"🔥", color:"#EF4444",
+    exercises:[
+      {name:"Burpees",          sets:3, reps:"8–10",     rest:"90s"},
+      {name:"Push-Ups",         sets:3, reps:"12 reps",  rest:"60s"},
+      {name:"Squats",           sets:3, reps:"15 reps",  rest:"60s"},
+      {name:"Mountain Climbers",sets:3, reps:"20 reps",  rest:"60s"},
+      {name:"Glute Bridge",     sets:3, reps:"15 reps",  rest:"45s"},
+      {name:"Plank",            sets:3, reps:"30–45 sec",rest:"45s"},
+    ]},
+  Saturday:  { focus:"Core & Cardio", emoji:"⚡", color:"#06B6D4",
+    exercises:[
+      {name:"High Knees",       sets:3, reps:"30 sec",   rest:"45s"},
+      {name:"Crunches",         sets:3, reps:"20 reps",  rest:"45s"},
+      {name:"Leg Raises",       sets:3, reps:"12–15",    rest:"45s"},
+      {name:"Russian Twists",   sets:3, reps:"20 twists",rest:"45s"},
+      {name:"Plank",            sets:3, reps:"40–60 sec",rest:"45s"},
+      {name:"Bicycle Crunches", sets:3, reps:"20 reps",  rest:"45s"},
+    ]},
+  Sunday:    { focus:"Rest Day — Recover & Recharge", emoji:"😴", color:"#6B7280",
+    exercises:[
+      {name:"Full Rest",               sets:"—",reps:"—",rest:"—"},
+      {name:"Optional: 15 min walk",   sets:"—",reps:"—",rest:"—"},
+      {name:"Sleep 7–9 hours",         sets:"—",reps:"—",rest:"—"},
+    ]},
+};
+
+const MEAL_SLOTS = ["Breakfast","Snack 1","Lunch","Snack 2","Dinner"];
+const MEAL_SUGGESTIONS = {
+  "Breakfast":["3 scrambled eggs + whole grain toast + banana","Oats with milk + banana + honey","Egg omelette with veggies + milk","Overnight oats + nut butter + fruit"],
+  "Snack 1":  ["Greek yogurt + almonds","2 boiled eggs + orange","Banana + peanut butter","Mixed nuts + glass of milk"],
+  "Lunch":    ["Grilled chicken + rice + salad","Tuna wrap + lettuce + tomato","Chicken rice bowl + veggies","Grilled salmon + quinoa + salad"],
+  "Snack 2":  ["Apple + peanut butter","Greek yogurt + berries","Almonds + orange","Mixed nuts + raisins"],
+  "Dinner":   ["Lentil soup + whole grain bread","Chicken stir-fry + rice","Chickpea curry + brown rice","Homemade chicken soup + bread"],
+};
+
+const TIPS = [
+  {icon:"💧",text:"Drink 2.5–3L of water daily"},
+  {icon:"😴",text:"Sleep 7–9 hours for muscle growth"},
+  {icon:"📈",text:"Add reps or sets every 1–2 weeks"},
+  {icon:"🍽️",text:"Aim for 120–140g protein daily"},
+  {icon:"📸",text:"Take monthly progress photos"},
+  {icon:"🔁",text:"Consistency beats perfection"},
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('fittrack_v1') || '{}'); } catch(e) { return {}; }
+}
+function saveState() {
+  try { localStorage.setItem('fittrack_v1', JSON.stringify(STATE)); } catch(e){}
+}
+
+let STATE = loadState();
+if (!STATE.checked) STATE.checked = {};
+if (!STATE.meals)   STATE.meals   = {};
+if (!STATE.notes)   STATE.notes   = {};
+
+// Determine today's day index (0=Mon … 6=Sun)
+const jsDay = new Date().getDay(); // 0=Sun
+const todayIdx = jsDay === 0 ? 6 : jsDay - 1;
+let activeDay  = todayIdx;
+let activeTab  = "workout";
+
+// ─── HELPERS ────────────────────────────────────────────────────────────────
+
+function dayName(i) { return DAYS_FULL[i]; }
+function workoutForDay(i) { return WORKOUT_DATA[dayName(i)]; }
+
+function weekProgress(i) {
+  const d = dayName(i);
+  const w = workoutForDay(i);
+  const checked = STATE.checked[d] || {};
+  const meals   = STATE.meals[d]   || {};
+  const wDone  = Object.values(checked).filter(Boolean).length;
+  const wTotal = w.exercises.length;
+  const mDone  = MEAL_SLOTS.filter(s => (meals[s]||"").trim()).length;
+  return Math.round((wDone/wTotal)*50 + (mDone/MEAL_SLOTS.length)*50);
+}
+
+function dayStats(i) {
+  const d = dayName(i);
+  const w = workoutForDay(i);
+  const checked = STATE.checked[d] || {};
+  const meals   = STATE.meals[d]   || {};
+  const wDone  = Object.values(checked).filter(Boolean).length;
+  const wTotal = w.exercises.length;
+  const mDone  = MEAL_SLOTS.filter(s => (meals[s]||"").trim()).length;
+  const wPct   = Math.round((wDone/wTotal)*100);
+  const mPct   = Math.round((mDone/MEAL_SLOTS.length)*100);
+  const overall= Math.round((wPct+mPct)/2);
+  return {wDone,wTotal,mDone,wPct,mPct,overall};
+}
+
+function esc(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+
+function render() {
+  renderDaySelector();
+  renderDayHeader();
+  renderTabs();
+  renderTabContent();
+  updateHeaderProgress();
+}
+
+function updateHeaderProgress() {
+  const {overall} = dayStats(activeDay);
+  document.getElementById('header-progress').style.width = overall+'%';
+  document.getElementById('header-pct').textContent = overall+'%';
+}
+
+function renderDaySelector() {
+  const el = document.getElementById('day-selector');
+  const w  = workoutForDay(activeDay);
+  el.innerHTML = DAYS_SHORT.map((d,i) => {
+    const isActive = i === activeDay;
+    const isToday  = i === todayIdx;
+    const prog     = weekProgress(i);
+    const dw       = workoutForDay(i);
+    const dotHtml  = isToday ? `<div style="position:absolute;top:4px;right:5px;width:6px;height:6px;border-radius:50%;background:#22d3ee;"></div>` : '';
+    return `
+      <button class="day-btn" onclick="setDay(${i})"
+        style="border-color:${isActive ? w.color : 'rgba(255,255,255,0.08)'};
+               background:${isActive ? w.color+'22' : 'rgba(255,255,255,0.04)'};">
+        ${dotHtml}
+        <div style="font-size:11px;color:${isActive?'#fff':'#94a3b8'};font-weight:600;">${d}</div>
+        <div style="font-size:16px;margin-top:2px;">${dw.emoji}</div>
+        <div class="progress-bar-track" style="margin-top:4px;">
+          <div class="progress-bar-fill" style="width:${prog}%;background:${prog===100?'#22d3ee':dw.color+'99'};"></div>
+        </div>
+      </button>`;
+  }).join('');
+}
+
+function renderDayHeader() {
+  const el = document.getElementById('day-header');
+  const w  = workoutForDay(activeDay);
+  const {wDone,wTotal,mDone,wPct,overall} = dayStats(activeDay);
+  el.style.background = `linear-gradient(135deg,${w.color}33 0%,${w.color}11 100%)`;
+  el.style.border = `1px solid ${w.color}44`;
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div style="font-size:22px;font-weight:800;color:#fff;">${dayName(activeDay)}</div>
+        <div style="font-size:13px;color:#94a3b8;margin-top:3px;">${w.focus}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:11px;color:#94a3b8;">Workout</div>
+        <div style="font-size:20px;font-weight:800;color:${w.color};">${wPct}%</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:14px;">
+      <div style="flex:1;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:8px;text-align:center;">
+        <div style="font-size:18px;font-weight:800;color:#fff;">${wDone}/${wTotal}</div>
+        <div style="font-size:10px;color:#94a3b8;margin-top:1px;">Exercises</div>
+      </div>
+      <div style="flex:1;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:8px;text-align:center;">
+        <div style="font-size:18px;font-weight:800;color:#fff;">${mDone}/${MEAL_SLOTS.length}</div>
+        <div style="font-size:10px;color:#94a3b8;margin-top:1px;">Meals logged</div>
+      </div>
+      <div style="flex:1;padding:8px 12px;background:rgba(255,255,255,0.06);border-radius:8px;text-align:center;">
+        <div style="font-size:18px;font-weight:800;color:${overall===100?'#22d3ee':'#fff'};">${overall}%</div>
+        <div style="font-size:10px;color:#94a3b8;margin-top:1px;">Day total</div>
+      </div>
+    </div>`;
+}
+
+function renderTabs() {
+  const w = workoutForDay(activeDay);
+  ['workout','meals','tips'].forEach(tab => {
+    const btn = document.getElementById('tab-'+tab);
+    const isActive = tab === activeTab;
+    btn.style.borderColor    = isActive ? w.color : 'rgba(255,255,255,0.08)';
+    btn.style.background     = isActive ? w.color+'22' : 'rgba(255,255,255,0.04)';
+    btn.style.color          = isActive ? '#fff' : '#94a3b8';
+    btn.classList.toggle('active', isActive);
+  });
+}
+
+function renderTabContent() {
+  const el = document.getElementById('tab-content');
+  if (activeTab === 'workout') el.innerHTML = renderWorkout();
+  else if (activeTab === 'meals') el.innerHTML = renderMeals();
+  else el.innerHTML = renderTips();
+}
+
+function renderWorkout() {
+  const d  = dayName(activeDay);
+  const w  = workoutForDay(activeDay);
+  const checked = STATE.checked[d] || {};
+  const {wPct} = dayStats(activeDay);
+
+  const rows = w.exercises.map(ex => {
+    const done = !!checked[ex.name];
+    const meta = [
+      ex.sets !== '—' ? `${ex.sets} sets` : '',
+      ex.reps !== '—' ? ex.reps : '',
+      ex.rest !== '—' ? `Rest ${ex.rest}` : ''
+    ].filter(Boolean).join(' · ');
+    return `
+      <div class="exercise-row" onclick="toggleExercise('${esc(ex.name)}')"
+        style="background:${done ? w.color+'22':'rgba(255,255,255,0.04)'};
+               border-color:${done ? w.color+'66':'rgba(255,255,255,0.06)'};
+               opacity:${done?1:0.85};">
+        <div class="check-box"
+          style="border:${done?'none':'2px solid rgba(255,255,255,0.2)'};
+                 background:${done?w.color:'transparent'};">
+          ${done?'<span style="color:#fff;font-size:14px;font-weight:800;">✓</span>':''}
+        </div>
+        <div style="flex:1;">
+          <div style="font-weight:600;font-size:14px;color:${done?'#fff':'#e2e8f0'};
+               text-decoration:${done?'line-through':'none'};text-decoration-color:#666;">
+            ${esc(ex.name)}
+          </div>
+          <div style="font-size:12px;color:#64748b;margin-top:2px;">${meta}</div>
+        </div>
+        ${done?'<span style="font-size:16px;">🔥</span>':''}
+      </div>`;
+  }).join('');
+
+  const completeBanner = wPct === 100 ? `
+    <div class="complete-banner" style="background:${w.color}22;border:1px solid ${w.color}44;">
+      <div style="font-size:28px;">🎉</div>
+      <div style="font-weight:700;color:#fff;margin-top:6px;">Workout Complete!</div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:4px;">Great job — rest up and fuel well!</div>
+    </div>` : '';
+
+  const notes = esc(STATE.notes[d] || '');
+  return `
+    ${rows}
+    ${completeBanner}
+    <div style="margin-top:16px;">
+      <div style="font-size:13px;color:#64748b;margin-bottom:6px;font-weight:600;">📝 Workout Notes</div>
+      <textarea class="notes-area" id="notes-area" placeholder="How did it feel? Any PBs? Notes for next time…"
+        oninput="saveNotes(this.value)">${notes}</textarea>
+    </div>`;
+}
+
+function renderMeals() {
+  const d     = dayName(activeDay);
+  const meals = STATE.meals[d] || {};
+  const {mDone} = dayStats(activeDay);
+
+  const slots = MEAL_SLOTS.map(slot => {
+    const logged = meals[slot] || '';
+    const suggs  = (MEAL_SUGGESTIONS[slot]||[]).map(s =>
+      `<button class="chip" onclick="useSuggestion('${esc(slot)}','${esc(s)}')">${esc(s)}</button>`
+    ).join('');
+
+    if (logged) {
+      return `
+        <div class="meal-card" style="border-color:#22d3ee44;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="font-weight:700;font-size:13px;color:#22d3ee;">✅ ${esc(slot)}</div>
+            <button onclick="removeMeal('${esc(slot)}')"
+              style="background:none;border:none;color:#ef4444;font-size:12px;cursor:pointer;padding:2px 6px;">✕ remove</button>
+          </div>
+          <div style="font-size:14px;color:#e2e8f0;font-style:italic;">"${esc(logged)}"</div>
+        </div>`;
+    }
+    return `
+      <div class="meal-card">
+        <div style="font-weight:700;font-size:13px;color:#94a3b8;margin-bottom:8px;">⬜ ${esc(slot)}</div>
+        <div style="display:flex;gap:6px;margin-bottom:8px;">
+          <input class="meal-input" id="input-${esc(slot)}" type="text"
+            placeholder="What did you eat for ${esc(slot.toLowerCase())}?"
+            onkeydown="if(event.key==='Enter') logMeal('${esc(slot)}')"/>
+          <button class="log-btn" onclick="logMeal('${esc(slot)}')">Log</button>
+        </div>
+        <div style="font-size:11px;color:#475569;margin-bottom:6px;">💡 Suggestions:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;">${suggs}</div>
+      </div>`;
+  }).join('');
+
+  const completeBanner = mDone === MEAL_SLOTS.length ? `
+    <div class="complete-banner" style="background:#22d3ee22;border:1px solid #22d3ee44;margin-top:4px;">
+      <div style="font-size:24px;">🥗</div>
+      <div style="font-weight:700;color:#fff;margin-top:4px;">All meals logged!</div>
+    </div>` : '';
+
+  return `
+    <div style="font-size:12px;color:#64748b;margin-bottom:12px;text-align:center;">
+      Target: ~2,400–2,600 kcal · 120–140g protein
+    </div>
+    ${slots}${completeBanner}`;
+}
+
+function renderTips() {
+  const tipsGrid = TIPS.map(t => `
+    <div class="tip-card">
+      <div style="font-size:22px;">${t.icon}</div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:6px;line-height:1.5;">${t.text}</div>
+    </div>`).join('');
+
+  const phases = [
+    ["Weeks 1–2","Learn movements, perfect form","#3B82F6"],
+    ["Weeks 3–4","Add reps, reduce rest times","#10B981"],
+    ["Weeks 5–8","More sets + harder variations","#F59E0B"],
+    ["Weeks 9–12","Advanced moves, visible gains","#EF4444"],
+  ].map(([ph,desc,col]) => `
+    <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0;margin-top:5px;"></div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#e2e8f0;">${ph}</div>
+        <div style="font-size:12px;color:#64748b;">${desc}</div>
+      </div>
+    </div>`).join('');
+
+  const weekBars = DAYS_SHORT.map((ds,i) => {
+    const prog = weekProgress(i);
+    const dw   = workoutForDay(i);
+    return `
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:36px;font-size:12px;color:#64748b;font-weight:600;">${ds}</div>
+        <div style="font-size:14px;">${dw.emoji}</div>
+        <div class="progress-bar-track" style="flex:1;">
+          <div class="progress-bar-fill" style="width:${prog}%;background:${prog===100?'#22d3ee':dw.color+'bb'};"></div>
+        </div>
+        <div style="font-size:12px;color:#64748b;width:32px;text-align:right;">${prog}%</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">${tipsGrid}</div>
+    <div class="section-card">
+      <div style="font-weight:700;color:#fff;margin-bottom:10px;font-size:14px;">📅 12-Week Progression</div>
+      ${phases}
+    </div>
+    <div class="section-card">
+      <div style="font-weight:700;color:#fff;margin-bottom:12px;font-size:14px;">📊 Week Overview</div>
+      ${weekBars}
+    </div>`;
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────────────────────────
+
+function setDay(i) {
+  activeDay = i;
+  render();
+}
+
+function switchTab(tab) {
+  activeTab = tab;
+  renderTabs();
+  renderTabContent();
+}
+
+function toggleExercise(name) {
+  const d = dayName(activeDay);
+  if (!STATE.checked[d]) STATE.checked[d] = {};
+  STATE.checked[d][name] = !STATE.checked[d][name];
+  saveState();
+  render();
+}
+
+function saveNotes(val) {
+  const d = dayName(activeDay);
+  STATE.notes[d] = val;
+  saveState();
+  // Don't re-render to preserve textarea focus
+  updateHeaderProgress();
+  renderDaySelector();
+  renderDayHeader();
+}
+
+function logMeal(slot) {
+  const el  = document.getElementById('input-'+slot);
+  if (!el) return;
+  const val = el.value.trim();
+  if (!val) return;
+  const d = dayName(activeDay);
+  if (!STATE.meals[d]) STATE.meals[d] = {};
+  STATE.meals[d][slot] = val;
+  saveState();
+  render();
+}
+
+function removeMeal(slot) {
+  const d = dayName(activeDay);
+  if (STATE.meals[d]) delete STATE.meals[d][slot];
+  saveState();
+  render();
+}
+
+function useSuggestion(slot, suggestion) {
+  const d = dayName(activeDay);
+  if (!STATE.meals[d]) STATE.meals[d] = {};
+  STATE.meals[d][slot] = suggestion;
+  saveState();
+  render();
+}
+
+// ─── PWA INSTALL ──────────────────────────────────────────────────────────────
+
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const banner = document.getElementById('install-banner');
+  banner.classList.add('show');
+});
+
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').classList.remove('show');
+});
+
+document.getElementById('dismiss-btn').addEventListener('click', () => {
+  document.getElementById('install-banner').classList.remove('show');
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').classList.remove('show');
+});
+
+// Detect iOS Safari and show manual instructions
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isSafari = /safari/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+if (isIOS && isSafari && !isStandalone) {
+  document.getElementById('ios-hint').style.display = 'block';
+}
+
+// ─── SERVICE WORKER (inline via blob) ────────────────────────────────────────
+
+const swCode = `
+const CACHE = 'fittrack-v1';
+const ASSETS = [self.location.href];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))
+  ));
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', e => {
+  e.respondWith(
+    caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+      const clone = res.clone();
+      caches.open(CACHE).then(c => c.put(e.request, clone));
+      return res;
+    }))
+  );
+});
+`;
+
+if ('serviceWorker' in navigator) {
+  const swBlob = new Blob([swCode], {type: 'application/javascript'});
+  const swURL  = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swURL, {scope: './'})
+    .catch(()=>{}); // silently fail if blocked
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+
+render();
+</script>
+</body>
+</html>
