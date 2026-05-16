@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <!-- Wood-grain table background -->
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#6B3E1E"/>
+      <stop offset="40%"  stop-color="#7D4A22"/>
+      <stop offset="100%" stop-color="#5A3010"/>
+    </linearGradient>
+    <!-- Plate shadow -->
+    <radialGradient id="plateShadow" cx="50%" cy="60%" r="50%">
+      <stop offset="0%"   stop-color="rgba(0,0,0,0.22)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+    <!-- Plate gradient (ceramic look) -->
+    <radialGradient id="plate" cx="42%" cy="38%" r="55%">
+      <stop offset="0%"   stop-color="#FFFEF8"/>
+      <stop offset="70%"  stop-color="#F5F0E8"/>
+      <stop offset="100%" stop-color="#E8E0D0"/>
+    </radialGradient>
+    <!-- Labneh body -->
+    <radialGradient id="labneh" cx="45%" cy="40%" r="55%">
+      <stop offset="0%"   stop-color="#FFFEFB"/>
+      <stop offset="60%"  stop-color="#F8F4EC"/>
+      <stop offset="100%" stop-color="#EDE6D8"/>
+    </radialGradient>
+    <!-- Olive oil pool -->
+    <radialGradient id="oil" cx="48%" cy="45%" r="55%">
+      <stop offset="0%"   stop-color="#F0C040" stop-opacity="0.85"/>
+      <stop offset="70%"  stop-color="#C8890A" stop-opacity="0.70"/>
+      <stop offset="100%" stop-color="#A06800" stop-opacity="0.50"/>
+    </radialGradient>
+    <!-- Oil sheen -->
+    <radialGradient id="oilSheen" cx="35%" cy="35%" r="45%">
+      <stop offset="0%"   stop-color="rgba(255,240,150,0.6)"/>
+      <stop offset="100%" stop-color="rgba(255,240,150,0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Table background -->
+  <rect width="800" height="500" fill="url(#wood)"/>
+
+  <!-- Wood grain lines -->
+  <g opacity="0.18" stroke="#3B1A08" stroke-width="1.2" fill="none">
+    <path d="M0,80 Q200,72 400,85 Q600,98 800,80"/>
+    <path d="M0,140 Q180,132 380,148 Q580,162 800,140"/>
+    <path d="M0,210 Q220,200 420,215 Q620,228 800,210"/>
+    <path d="M0,290 Q190,282 400,295 Q610,308 800,290"/>
+    <path d="M0,360 Q210,352 410,365 Q610,378 800,360"/>
+    <path d="M0,430 Q200,422 400,435 Q600,448 800,430"/>
+  </g>
+  <g opacity="0.08" stroke="#C8890A" stroke-width="0.8" fill="none">
+    <path d="M0,60 Q300,55 600,68 Q720,74 800,60"/>
+    <path d="M0,170 Q250,162 500,178 Q680,190 800,170"/>
+    <path d="M0,320 Q280,312 560,325 Q700,334 800,320"/>
+    <path d="M0,460 Q270,452 540,465 Q700,474 800,460"/>
+  </g>
+
+  <!-- Plate shadow on table -->
+  <ellipse cx="400" cy="290" rx="220" ry="36" fill="url(#plateShadow)"/>
+
+  <!-- Plate rim -->
+  <ellipse cx="400" cy="252" rx="210" ry="210" fill="#DDD5C4"/>
+  <!-- Plate face -->
+  <ellipse cx="400" cy="248" rx="204" ry="204" fill="url(#plate)"/>
+  <!-- Inner plate ring shadow -->
+  <ellipse cx="400" cy="248" rx="178" ry="178" fill="none" stroke="#D8D0BF" stroke-width="3" opacity="0.5"/>
+
+  <!-- Labneh mound (slightly domed blob) -->
+  <ellipse cx="400" cy="255" rx="148" ry="132" fill="url(#labneh)"/>
+  <!-- Labneh highlight -->
+  <ellipse cx="375" cy="225" rx="58" ry="42" fill="rgba(255,255,255,0.55)" transform="rotate(-12,375,225)"/>
+  <!-- Soft shadow under labneh -->
+  <ellipse cx="404" cy="300" rx="120" ry="22" fill="rgba(180,160,130,0.18)"/>
+
+  <!-- Olive oil pool in the center indent -->
+  <ellipse cx="405" cy="255" rx="66" ry="56" fill="url(#oil)"/>
+  <ellipse cx="405" cy="255" rx="66" ry="56" fill="url(#oilSheen)"/>
+  <!-- Oil glint -->
+  <ellipse cx="390" cy="240" rx="18" ry="10" fill="rgba(255,248,200,0.55)" transform="rotate(-20,390,240)"/>
+
+  <!-- Za'atar / dried thyme specks scattered on labneh -->
+  <g fill="#5A7A30" opacity="0.82">
+    <!-- cluster top-left -->
+    <rect x="345" y="208" width="8" height="2.5" rx="1.2" transform="rotate(-30,349,209)"/>
+    <rect x="360" y="200" width="6" height="2" rx="1" transform="rotate(15,363,201)"/>
+    <rect x="333" y="220" width="7" height="2" rx="1" transform="rotate(-10,337,221)"/>
+    <!-- cluster right -->
+    <rect x="448" y="215" width="8" height="2.5" rx="1.2" transform="rotate(20,452,216)"/>
+    <rect x="462" y="228" width="6" height="2" rx="1" transform="rotate(-25,465,229)"/>
+    <rect x="455" y="205" width="7" height="2" rx="1" transform="rotate(40,459,206)"/>
+    <!-- cluster bottom -->
+    <rect x="370" y="308" width="8" height="2.5" rx="1.2" transform="rotate(10,374,309)"/>
+    <rect x="390" y="316" width="6" height="2" rx="1" transform="rotate(-15,393,317)"/>
+    <rect x="415" y="310" width="7" height="2" rx="1" transform="rotate(25,419,311)"/>
+    <!-- cluster top-right edge -->
+    <rect x="430" y="198" width="5" height="2" rx="1" transform="rotate(-40,433,199)"/>
+    <rect x="420" y="188" width="7" height="2" rx="1" transform="rotate(5,424,189)"/>
+    <!-- scattered -->
+    <rect x="355" y="290" width="6" height="2" rx="1" transform="rotate(-20,358,291)"/>
+    <rect x="440" y="290" width="8" height="2.5" rx="1.2" transform="rotate(30,444,291)"/>
+    <rect x="328" y="255" width="5" height="2" rx="1" transform="rotate(-5,331,256)"/>
+    <rect x="465" y="258" width="6" height="2" rx="1" transform="rotate(15,468,259)"/>
+  </g>
+
+  <!-- Sumac / red spice dots -->
+  <g fill="#C0362A" opacity="0.70">
+    <circle cx="360" cy="215" r="2.5"/>
+    <circle cx="380" cy="206" r="2"/>
+    <circle cx="435" cy="222" r="2.5"/>
+    <circle cx="452" cy="240" r="2"/>
+    <circle cx="375" cy="305" r="2.5"/>
+    <circle cx="405" cy="312" r="2"/>
+    <circle cx="338" cy="238" r="2"/>
+    <circle cx="458" cy="270" r="2.5"/>
+    <circle cx="338" cy="268" r="2"/>
+    <circle cx="420" cy="300" r="2.5"/>
+  </g>
+
+  <!-- Small black olives on the side -->
+  <ellipse cx="296" cy="248" rx="18" ry="14" fill="#2A1F18"/>
+  <ellipse cx="296" cy="245" rx="14" ry="9" fill="#3D2E25"/>
+  <ellipse cx="293" cy="243" rx="5" ry="4" fill="rgba(255,255,255,0.1)"/>
+
+  <ellipse cx="316" cy="272" rx="16" ry="13" fill="#2A1F18"/>
+  <ellipse cx="316" cy="269" rx="12" ry="8" fill="#3D2E25"/>
+
+  <ellipse cx="504" cy="245" rx="18" ry="14" fill="#2A1F18"/>
+  <ellipse cx="504" cy="242" rx="14" ry="9" fill="#3D2E25"/>
+
+  <ellipse cx="486" cy="270" rx="16" ry="13" fill="#2A1F18"/>
+  <ellipse cx="486" cy="267" rx="12" ry="8" fill="#3D2E25"/>
+
+  <!-- Olive oil drizzle trails -->
+  <g fill="none" stroke="#C8890A" stroke-width="2.5" stroke-linecap="round" opacity="0.55">
+    <path d="M380,195 Q370,210 365,230"/>
+    <path d="M425,192 Q435,208 440,228"/>
+    <path d="M348,270 Q355,285 362,298"/>
+    <path d="M455,265 Q448,282 440,295"/>
+  </g>
+
+  <!-- Bread / markouk piece bottom-right (partially visible) -->
+  <g transform="translate(588,340) rotate(-18)">
+    <path d="M0,0 Q60,-8 110,5 Q130,12 135,40 Q125,60 100,65 Q60,72 10,60 Q-15,52 -10,25 Z"
+          fill="#D4A055" opacity="0.92"/>
+    <path d="M0,0 Q60,-8 110,5 Q130,12 135,40 Q125,60 100,65 Q60,72 10,60 Q-15,52 -10,25 Z"
+          fill="none" stroke="#A06820" stroke-width="1.5" opacity="0.5"/>
+    <!-- bread texture dots -->
+    <circle cx="35" cy="32" r="3" fill="#A06820" opacity="0.4"/>
+    <circle cx="60" cy="20" r="2.5" fill="#A06820" opacity="0.35"/>
+    <circle cx="85" cy="38" r="3" fill="#A06820" opacity="0.4"/>
+    <circle cx="50" cy="50" r="2" fill="#A06820" opacity="0.3"/>
+  </g>
+
+  <!-- Fresh thyme sprig top-left of table -->
+  <g transform="translate(95,110) rotate(28)" opacity="0.88">
+    <line x1="0" y1="0" x2="0" y2="80" stroke="#4A6E28" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- leaves pairs -->
+    <ellipse cx="-7" cy="18" rx="7" ry="3.5" fill="#5A8030" transform="rotate(-35,-7,18)"/>
+    <ellipse cx="8" cy="24" rx="7" ry="3.5" fill="#4E7228" transform="rotate(30,8,24)"/>
+    <ellipse cx="-8" cy="38" rx="7" ry="3.5" fill="#5A8030" transform="rotate(-30,-8,38)"/>
+    <ellipse cx="8" cy="44" rx="7" ry="3.5" fill="#4E7228" transform="rotate(28,8,44)"/>
+    <ellipse cx="-7" cy="57" rx="7" ry="3.5" fill="#5A8030" transform="rotate(-32,-7,57)"/>
+    <ellipse cx="7" cy="63" rx="6" ry="3" fill="#4E7228" transform="rotate(25,7,63)"/>
+  </g>
+
+  <!-- Second thyme sprig right side -->
+  <g transform="translate(668,350) rotate(-22)" opacity="0.80">
+    <line x1="0" y1="0" x2="0" y2="65" stroke="#4A6E28" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="-6" cy="15" rx="6" ry="3" fill="#5A8030" transform="rotate(-35,-6,15)"/>
+    <ellipse cx="7" cy="22" rx="6" ry="3" fill="#4E7228" transform="rotate(30,7,22)"/>
+    <ellipse cx="-6" cy="35" rx="6" ry="3" fill="#5A8030" transform="rotate(-30,-6,35)"/>
+    <ellipse cx="7" cy="42" rx="6" ry="3" fill="#4E7228" transform="rotate(28,7,42)"/>
+    <ellipse cx="-5" cy="54" rx="5" ry="3" fill="#5A8030" transform="rotate(-32,-5,54)"/>
+  </g>
+
+  <!-- Olive oil bottle neck (partially cropped, top-left) -->
+  <g transform="translate(680,60) rotate(15)" opacity="0.75">
+    <rect x="-12" y="0" width="24" height="55" rx="5" fill="#8AAA50"/>
+    <rect x="-8" y="0" width="16" height="8" rx="3" fill="#6A8A38"/>
+    <rect x="-10" y="2" width="6" height="20" rx="2" fill="rgba(255,255,255,0.15)"/>
+  </g>
+</svg>
