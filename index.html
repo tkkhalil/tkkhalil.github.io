@@ -3,123 +3,293 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>El Balady | Coming Soon</title>
+  <title>El Balady | عرايس و توابعو · Since 1986 · Feytroun</title>
+  <meta name="description" content="El Balady – traditional Lebanese dairy and arais from Feytroun since 1986. Weekly delivery available across Lebanon." />
 
-  <!-- Google Font (matches your LAU preference for Raleway) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="page">
-    <header class="card header">
-      <img class="logo" src="el-balady-logo.png" alt="El Balady logo" />
-      <h1 class="title">El Balady</h1>
-      <p class="subtitle" dir="rtl">البلدي</p>
-      <p class="note">We’re getting our new website ready. In the meantime, browse the items menu or contact us below.</p>
-      <p class="note note--delivery">
-        We also do <strong>weekly delivery</strong> to different regions.
-        Contact us on WhatsApp to order or to get delivery schedule details:
-        <a class="wa-link" href="https://wa.me/+9613147849" target="_blank" rel="noopener">
-          WhatsApp: Ziad-031478499
-        </a>
-      </p>
-      <a class="menuLink" href="Al Baladi Menu.pdf" target="_blank" rel="noopener">
-        View / Download Menu (PDF)
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#home" class="nav__logo">
+        <img src="el-balady-logo.png" alt="El Balady" />
       </a>
-    </header>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#specialties">Specialties</a></li>
+        <li><a href="#delivery">Delivery</a></li>
+        <li><a href="#contact" class="nav__cta">Contact Us</a></li>
+      </ul>
+      <button class="nav__burger" aria-label="Toggle menu" id="burger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-    <section class="card formCard" aria-label="Contact form">
-      <h2 class="sectionTitle">Contact Us</h2>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero__bg"></div>
+    <div class="hero__content">
+      <img class="hero__logo" src="logo-mark.png" alt="El Balady logo" />
+      <p class="hero__arabic">عرايس و توابعو</p>
+      <h1 class="hero__title">Authentic Lebanese Dairy</h1>
+      <p class="hero__sub">Crafted with tradition since <strong>1986</strong> &middot; Feytroun, Lebanon</p>
+      <div class="hero__actions">
+        <a href="Al Baladi Menu.pdf" target="_blank" rel="noopener" class="btn btn--white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Menu
+        </a>
+        <a href="https://wa.me/+9613147849" target="_blank" rel="noopener" class="btn btn--outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.555 4.109 1.527 5.834L0 24l6.334-1.521A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.812 9.812 0 01-5.007-1.371l-.36-.214-3.726.894.913-3.632-.234-.373A9.818 9.818 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>
+          Order on WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true"><span></span></div>
+  </section>
 
-      <!--
-        IMPORTANT (Email sending):
-        A purely static page cannot send email directly without a form service or backend.
-        Option A (recommended for a temporary landing page): Formspree
-          1) Create a free Formspree form.
-          2) Replace the action URL below with your Formspree endpoint.
-          3) In Formspree settings, set notifications to: tkkhalil81@gmail.com
-
-        Option B: Netlify Forms (if you host on Netlify)
-          - Remove the action attribute, add: data-netlify="true"
-          - Keep the hidden "form-name" input.
-      -->
-
-      <form id="contactForm"
-            action="https://formspree.io/f/xgokkwpo"
-            method="POST">
-        <input type="hidden" name="source" value="El Balady landing page" />
-
-        <div class="grid">
-          <label class="field">
-            <span>Name</span>
-            <input name="name" type="text" autocomplete="name" required />
-          </label>
-
-          <label class="field">
-            <span>Phone (optional)</span>
-            <input name="phone" type="tel" autocomplete="tel" />
-          </label>
+  <!-- ABOUT -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__visual">
+          <div class="about__badge">
+            <span class="about__since">Est.</span>
+            <span class="about__year">1986</span>
+          </div>
+          <div class="about__stamp">
+            <p>فيترون</p>
+            <p>Feytroun</p>
+          </div>
         </div>
+        <div class="about__text">
+          <span class="label">Our Story</span>
+          <h2>Rooted in the Mountains of Feytroun</h2>
+          <p>For nearly four decades, El Balady has been a cherished name in the heart of Feytroun, Lebanon. What started as a humble dairy shop in 1986 has grown into a beloved institution — a place where traditional recipes are preserved and fresh quality is never compromised.</p>
+          <p>Every product we make carries the warmth of the Lebanese highlands: handcrafted arais, rich labneh, and artisanal cheeses made the old-fashioned way, just as they were always meant to be.</p>
+          <div class="about__stats">
+            <div class="stat">
+              <strong>38+</strong>
+              <span>Years of tradition</span>
+            </div>
+            <div class="stat">
+              <strong>100%</strong>
+              <span>Fresh &amp; natural</span>
+            </div>
+            <div class="stat">
+              <strong>🇱🇧</strong>
+              <span>Made in Lebanon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <label class="field">
-          <span>Email</span>
-          <input name="email" type="email" autocomplete="email" required />
-        </label>
+  <!-- SPECIALTIES -->
+  <section class="specialties section section--alt" id="specialties">
+    <div class="container">
+      <div class="section__header">
+        <span class="label">What We Make</span>
+        <h2>Our Specialties</h2>
+        <p>Traditional Lebanese flavours, crafted fresh every day</p>
+      </div>
+      <div class="products">
+        <div class="product-card">
+          <div class="product-card__icon">🥙</div>
+          <h3>Arais</h3>
+          <p class="product-card__ar">عرايس</p>
+          <p>Crispy Lebanese flatbread filled with our signature spiced cheese mix — the specialty that put El Balady on the map.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-card__icon">🫙</div>
+          <h3>Labneh</h3>
+          <p class="product-card__ar">لبنة</p>
+          <p>Thick, creamy strained yogurt — plain or rolled in thyme and olive oil. A breakfast staple made the traditional way.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-card__icon">🧀</div>
+          <h3>Artisan Cheeses</h3>
+          <p class="product-card__ar">جبنة بلدية</p>
+          <p>A selection of handcrafted Lebanese cheeses including akkawi, halloumi, and seasonal varieties made from fresh local milk.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-card__icon">✨</div>
+          <h3>Accompaniments</h3>
+          <p class="product-card__ar">توابع</p>
+          <p>Olives, jams, honey, and house-made condiments — everything you need to complete a perfect Lebanese spread.</p>
+        </div>
+      </div>
+      <div class="specialties__cta">
+        <a href="Al Baladi Menu.pdf" target="_blank" rel="noopener" class="btn btn--primary">
+          Download Full Menu (PDF)
+        </a>
+      </div>
+    </div>
+  </section>
 
-        <label class="field">
-          <span>Message</span>
-          <textarea name="message" rows="5" required></textarea>
-        </label>
+  <!-- DELIVERY -->
+  <section class="delivery section" id="delivery">
+    <div class="container">
+      <div class="delivery__inner">
+        <div class="delivery__text">
+          <span class="label label--light">Don't miss out</span>
+          <h2>Weekly Delivery<br>to Your Door</h2>
+          <p>We deliver fresh products to different regions across Lebanon every week. Message us on WhatsApp to place your order or get the delivery schedule for your area.</p>
+          <a href="https://wa.me/+9613147849" target="_blank" rel="noopener" class="btn btn--white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.555 4.109 1.527 5.834L0 24l6.334-1.521A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.812 9.812 0 01-5.007-1.371l-.36-.214-3.726.894.913-3.632-.234-.373A9.818 9.818 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+        <div class="delivery__card">
+          <p class="delivery__card-label">Reach us on</p>
+          <p class="delivery__phone">03 147849</p>
+          <p class="delivery__card-sub">WhatsApp · Instagram · Facebook</p>
+          <p class="delivery__handle">@El.baldy</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <button class="btn" type="submit">Send Message</button>
+  <!-- CONTACT -->
+  <section class="contact-section section section--alt" id="contact">
+    <div class="container">
+      <div class="section__header">
+        <span class="label">Get in Touch</span>
+        <h2>Contact Us</h2>
+        <p>Have a question or a custom order? We'd love to hear from you.</p>
+      </div>
+      <div class="contact__grid">
+        <div class="contact__info">
+          <div class="info-item">
+            <span class="info-item__icon">📍</span>
+            <div>
+              <strong>Location</strong>
+              <p>Feytroun, Byblos District<br>Mount Lebanon, Lebanon</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-item__icon">📞</span>
+            <div>
+              <strong>Phone / WhatsApp</strong>
+              <p><a href="https://wa.me/+9613147849">03 147849</a></p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-item__icon">🌐</span>
+            <div>
+              <strong>Follow Us</strong>
+              <p>@El.baldy on Instagram &amp; Facebook</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact__form">
+          <form id="contactForm" action="https://formspree.io/f/xgokkwpo" method="POST">
+            <input type="hidden" name="source" value="El Balady landing page" />
+            <div class="form-row">
+              <label class="field">
+                <span>Name</span>
+                <input name="name" type="text" autocomplete="name" required placeholder="Your name" />
+              </label>
+              <label class="field">
+                <span>Phone (optional)</span>
+                <input name="phone" type="tel" autocomplete="tel" placeholder="+961..." />
+              </label>
+            </div>
+            <label class="field">
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" required placeholder="your@email.com" />
+            </label>
+            <label class="field">
+              <span>Message</span>
+              <textarea name="message" rows="4" required placeholder="How can we help?"></textarea>
+            </label>
+            <button class="btn btn--primary btn--full" type="submit">Send Message</button>
+            <p class="fineprint">By sending this form, you agree that we may contact you back using the details provided.</p>
+            <p id="status" class="status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <p class="fineprint">
-          By sending this form, you agree that we may contact you back using the details provided.
-        </p>
-
-        <p id="status" class="status" role="status" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <footer class="footer">
-      <span>© <span id="year"></span> El Balady</span>
-    </footer>
-  </main>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <img class="footer__logo" src="el-balady-logo.png" alt="El Balady" />
+        <div class="footer__links">
+          <a href="#about">Our Story</a>
+          <a href="#specialties">Specialties</a>
+          <a href="#delivery">Delivery</a>
+          <a href="#contact">Contact</a>
+          <a href="Al Baladi Menu.pdf" target="_blank" rel="noopener">Menu PDF</a>
+        </div>
+        <p class="footer__copy">&copy; <span id="year"></span> El Balady &middot; Feytroun, Lebanon &middot; est. 1986</p>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    // Small UX: show a friendly success/error message without leaving the page (works with Formspree).
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav__links--open');
+      burger.classList.toggle('nav__burger--open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('nav__links--open');
+        burger.classList.remove('nav__burger--open');
+      });
+    });
+
     const form = document.getElementById('contactForm');
     const statusEl = document.getElementById('status');
-    const yearEl = document.getElementById('year');
-    yearEl.textContent = new Date().getFullYear();
-
     form.addEventListener('submit', async (e) => {
-      // If action is not set, fall back to normal submit.
       if (!form.action || form.action.includes('YOUR_FORM_ID')) return;
-
       e.preventDefault();
       statusEl.textContent = 'Sending…';
-
+      statusEl.style.color = '';
       try {
-        const data = new FormData(form);
         const res = await fetch(form.action, {
           method: form.method,
-          body: data,
+          body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
-
         if (res.ok) {
           form.reset();
-          statusEl.textContent = 'Thank you! Your message has been sent.';
+          statusEl.textContent = '✓ Message sent! We\'ll get back to you soon.';
+          statusEl.style.color = '#2e7d32';
         } else {
-          statusEl.textContent = 'Sorry—something went wrong. Please try again.';
+          statusEl.textContent = 'Something went wrong. Please try again.';
+          statusEl.style.color = '#c62828';
         }
-      } catch (err) {
+      } catch {
         statusEl.textContent = 'Network error. Please try again.';
+        statusEl.style.color = '#c62828';
       }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.product-card, .about__grid, .info-item').forEach(el => {
+      el.classList.add('fade-up');
+      observer.observe(el);
     });
   </script>
 </body>
