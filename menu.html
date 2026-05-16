@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>El Balady – Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --amber:       #C8890A;
+      --amber-light: #E8A820;
+      --amber-dark:  #8A6200;
+      --brown:       #3B1A08;
+      --cream:       #FDF6E3;
+      --cream-dark:  #F0E4C0;
+      --white:       #ffffff;
+      --muted:       #7A5C30;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--brown);
+      min-height: 100vh;
+    }
+
+    /* ── PRINT BUTTON ── */
+    .print-bar {
+      background: var(--brown);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .print-bar a {
+      color: rgba(255,255,255,.6);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .print-bar a:hover { color: var(--amber-light); }
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--amber-light), var(--amber));
+      color: var(--white);
+      border: none;
+      border-radius: 999px;
+      padding: 9px 22px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .print-btn:hover { opacity: .9; }
+
+    /* ── MENU WRAPPER ── */
+    .menu-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 32px 64px;
+    }
+
+    /* ── HEADER ── */
+    .menu-header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding-bottom: 36px;
+      border-bottom: 3px solid var(--cream-dark);
+    }
+    .menu-header__logo {
+      height: 90px;
+      width: auto;
+      margin: 0 auto 16px;
+    }
+    .menu-header__title {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--brown);
+      letter-spacing: .02em;
+    }
+    .menu-header__subtitle {
+      font-family: 'Cairo', system-ui, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--amber);
+      margin-top: 4px;
+      direction: rtl;
+    }
+    .menu-header__tagline {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ── SECTION ── */
+    .menu-section {
+      margin-bottom: 44px;
+    }
+    .menu-section__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, var(--brown), #5C2E00);
+      color: var(--white);
+      padding: 14px 22px;
+      border-radius: 14px 14px 0 0;
+    }
+    .menu-section__header h2 {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .menu-section__header span {
+      font-family: 'Cairo', system-ui, sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--amber-light);
+      direction: rtl;
+    }
+
+    /* ── TABLE ── */
+    .menu-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: 0 0 14px 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+    }
+    .menu-table thead tr {
+      background: var(--cream-dark);
+    }
+    .menu-table thead th {
+      padding: 11px 16px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+    }
+    .menu-table thead th.ar {
+      text-align: right;
+      font-family: 'Cairo', system-ui, sans-serif;
+      font-size: 12px;
+    }
+    .menu-table thead th.num { text-align: right; }
+
+    .menu-table tbody tr {
+      border-bottom: 1px solid var(--cream-dark);
+      transition: background .1s;
+    }
+    .menu-table tbody tr:last-child { border-bottom: none; }
+    .menu-table tbody tr:hover { background: var(--cream); }
+
+    .menu-table td {
+      padding: 11px 16px;
+      font-size: 14px;
+      color: var(--brown);
+      vertical-align: middle;
+    }
+    .menu-table td.en { font-weight: 600; }
+    .menu-table td.ar {
+      font-family: 'Cairo', system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: right;
+      direction: rtl;
+    }
+    .menu-table td.size {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .menu-table td.price-usd {
+      text-align: right;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--amber-dark);
+      white-space: nowrap;
+    }
+    .menu-table td.price-lbp {
+      text-align: right;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ── FOOTER ── */
+    .menu-footer {
+      margin-top: 48px;
+      text-align: center;
+      padding-top: 28px;
+      border-top: 2px solid var(--cream-dark);
+    }
+    .menu-footer p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .menu-footer strong { color: var(--brown); }
+    .menu-footer a { color: var(--amber); font-weight: 700; text-decoration: none; }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+      .print-bar { display: none; }
+      body { background: white; }
+      .menu-page { padding: 24px 16px; }
+      .menu-header { margin-bottom: 28px; padding-bottom: 20px; }
+      .menu-section { break-inside: avoid; margin-bottom: 28px; }
+      .menu-table tbody tr:hover { background: white; }
+    }
+
+    @media (max-width: 600px) {
+      .menu-page { padding: 28px 16px 48px; }
+      .menu-table td.price-lbp { display: none; }
+      .menu-table thead th.lbp-head { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <a href="index.html">← Back to site</a>
+    <button class="print-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Save / Print as PDF
+    </button>
+  </div>
+
+  <div class="menu-page">
+
+    <div class="menu-header">
+      <img class="menu-header__logo" src="logo-mark.png" alt="El Balady" />
+      <h1 class="menu-header__title">El Balady</h1>
+      <p class="menu-header__subtitle">قائمة الأسعار</p>
+      <p class="menu-header__tagline">Feytroun, Lebanon &middot; est. 1986 &middot; 03 147849</p>
+    </div>
+
+    <!-- DAIRY -->
+    <div class="menu-section">
+      <div class="menu-section__header">
+        <h2>Dairy</h2>
+        <span>البان وأجبان</span>
+      </div>
+      <table class="menu-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th class="ar">المنتج</th>
+            <th>Size</th>
+            <th class="num lbp-head">LBP</th>
+            <th class="num">USD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="en">Laban Cow</td><td class="ar">لبن بقر</td><td class="size">1 Kg</td><td class="price-lbp">200,000</td><td class="price-usd">$2.22</td></tr>
+          <tr><td class="en">Laban Cow</td><td class="ar">لبن بقر</td><td class="size">2 Kg</td><td class="price-lbp">350,000</td><td class="price-usd">$3.89</td></tr>
+          <tr><td class="en">Laban Goat</td><td class="ar">لبن ماعز</td><td class="size">1 Kg</td><td class="price-lbp">250,000</td><td class="price-usd">$2.78</td></tr>
+          <tr><td class="en">Laban Goat</td><td class="ar">لبن ماعز</td><td class="size">2 Kg</td><td class="price-lbp">450,000</td><td class="price-usd">$5.00</td></tr>
+          <tr><td class="en">Halloum</td><td class="ar">حلوم</td><td class="size">1 Kg</td><td class="price-lbp">1,050,000</td><td class="price-usd">$11.67</td></tr>
+          <tr><td class="en">Halloum Goat</td><td class="ar">حلوم ماعز</td><td class="size">1 Kg</td><td class="price-lbp">1,300,000</td><td class="price-usd">$14.44</td></tr>
+          <tr><td class="en">Naboulsi</td><td class="ar">حلوم نابلسي</td><td class="size">1 Kg</td><td class="price-lbp">1,150,000</td><td class="price-usd">$12.78</td></tr>
+          <tr><td class="en">Chanklish</td><td class="ar">شنكليش</td><td class="size">1 Kg</td><td class="price-lbp">1,200,000</td><td class="price-usd">$13.33</td></tr>
+          <tr><td class="en">Mshallaleh</td><td class="ar">مشللة</td><td class="size">1 Kg</td><td class="price-lbp">1,250,000</td><td class="price-usd">$13.89</td></tr>
+          <tr><td class="en">Akkawi</td><td class="ar">عكاوي</td><td class="size">1 Kg</td><td class="price-lbp">990,000</td><td class="price-usd">$11.00</td></tr>
+          <tr><td class="en">Double Crème</td><td class="ar">دوبل كريم</td><td class="size">1 Kg</td><td class="price-lbp">950,000</td><td class="price-usd">$10.56</td></tr>
+          <tr><td class="en">Majdouleh</td><td class="ar">مجدولة</td><td class="size">1 Kg</td><td class="price-lbp">1,300,000</td><td class="price-usd">$14.44</td></tr>
+          <tr><td class="en">Fetta</td><td class="ar">فيتا</td><td class="size">1 Kg</td><td class="price-lbp">680,000</td><td class="price-usd">$7.56</td></tr>
+          <tr><td class="en">Milk</td><td class="ar">حليب</td><td class="size">1 Litre</td><td class="price-lbp">180,000</td><td class="price-usd">$2.00</td></tr>
+          <tr><td class="en">Baladiye Cow</td><td class="ar">جبنة بلدية بقر</td><td class="size">1 Kg</td><td class="price-lbp">900,000</td><td class="price-usd">$10.00</td></tr>
+          <tr><td class="en">Baladiye Goat</td><td class="ar">جبنة بلدية ماعز</td><td class="size">1 Kg</td><td class="price-lbp">900,000</td><td class="price-usd">$10.00</td></tr>
+          <tr><td class="en">Bulgari Sheep</td><td class="ar">بلغاري غنم</td><td class="size">1 Kg</td><td class="price-lbp">2,400,000</td><td class="price-usd">$26.67</td></tr>
+          <tr><td class="en">Labneh Goat Roll</td><td class="ar">لبنة ماعز اصبع</td><td class="size">200 gr / pc</td><td class="price-lbp">200,000</td><td class="price-usd">$2.22</td></tr>
+          <tr><td class="en">Kishk Akhdar Roll</td><td class="ar">كشك اخضر اصبع</td><td class="size">120 gr / pc</td><td class="price-lbp">110,000</td><td class="price-usd">$1.22</td></tr>
+          <tr><td class="en">Bulgari in Olive Oil</td><td class="ar">بلغاري بالزيت</td><td class="size">Large jar</td><td class="price-lbp">1,200,000</td><td class="price-usd">$13.33</td></tr>
+          <tr><td class="en">Fetta in Olive Oil</td><td class="ar">فيتا بالزيت</td><td class="size">Large jar</td><td class="price-lbp">800,000</td><td class="price-usd">$8.89</td></tr>
+          <tr><td class="en">Labneh Balls Cow</td><td class="ar">مكعزلة بقر</td><td class="size">Large jar</td><td class="price-lbp">700,000</td><td class="price-usd">$7.78</td></tr>
+          <tr><td class="en">Labneh Balls Goat</td><td class="ar">مكعزلة ماعز</td><td class="size">Large jar</td><td class="price-lbp">900,000</td><td class="price-usd">$10.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- HONEY & JAMS -->
+    <div class="menu-section">
+      <div class="menu-section__header">
+        <h2>Honey &amp; Jams</h2>
+        <span>عسل / مربيات</span>
+      </div>
+      <table class="menu-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th class="ar">المنتج</th>
+            <th>Size</th>
+            <th class="num lbp-head">LBP</th>
+            <th class="num">USD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="en">Honey</td><td class="ar">عسل</td><td class="size">450 gr</td><td class="price-lbp">1,800,000</td><td class="price-usd">$20.00</td></tr>
+          <tr><td class="en">Honey</td><td class="ar">عسل</td><td class="size">900 gr</td><td class="price-lbp">3,600,000</td><td class="price-usd">$40.00</td></tr>
+          <tr><td class="en">Apple Jam</td><td class="ar">مربى التفاح</td><td class="size">Jar</td><td class="price-lbp">360,000</td><td class="price-usd">$4.00</td></tr>
+          <tr><td class="en">Strawberry Jam</td><td class="ar">مربى الفريز</td><td class="size">Jar</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Figs Jam</td><td class="ar">مربى التين</td><td class="size">Jar</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Whole Fig Jam</td><td class="ar">مربى التين كوز</td><td class="size">Jar</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Berry Jam</td><td class="ar">مربى التوت</td><td class="size">Jar</td><td class="price-lbp">700,000</td><td class="price-usd">$7.78</td></tr>
+          <tr><td class="en">Date Jam</td><td class="ar">مربى البلح</td><td class="size">Jar</td><td class="price-lbp">900,000</td><td class="price-usd">$10.00</td></tr>
+          <tr><td class="en">Apricot Jam</td><td class="ar">مربى المشمش</td><td class="size">Jar</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Pears Jam (spread)</td><td class="ar">مربى الإجاص مصفى</td><td class="size">Jar</td><td class="price-lbp">600,000</td><td class="price-usd">$6.67</td></tr>
+          <tr><td class="en">Pumpkin Jam</td><td class="ar">مربى اليقطين</td><td class="size">Jar</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Quince Jam</td><td class="ar">مربى السفرجل</td><td class="size">Jar</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PICKLES, PRESERVES & SPICES -->
+    <div class="menu-section">
+      <div class="menu-section__header">
+        <h2>Pickles, Preserves &amp; Spices</h2>
+        <span>كبيس / مونة</span>
+      </div>
+      <table class="menu-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th class="ar">المنتج</th>
+            <th>Size</th>
+            <th class="num lbp-head">LBP</th>
+            <th class="num">USD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="en">Thyme (Zaatar)</td><td class="ar">زعتر</td><td class="size">1 Kg</td><td class="price-lbp">1,500,000</td><td class="price-usd">$16.67</td></tr>
+          <tr><td class="en">Halabi Thyme</td><td class="ar">زعتر حلبي</td><td class="size">1 Kg</td><td class="price-lbp">1,200,000</td><td class="price-usd">$13.33</td></tr>
+          <tr><td class="en">Sumac</td><td class="ar">سماق</td><td class="size">1 Kg</td><td class="price-lbp">1,800,000</td><td class="price-usd">$20.00</td></tr>
+          <tr><td class="en">Kishk</td><td class="ar">كشك</td><td class="size">1 Kg</td><td class="price-lbp">2,250,000</td><td class="price-usd">$25.00</td></tr>
+          <tr><td class="en">Awarma</td><td class="ar">قورما</td><td class="size">Jar</td><td class="price-lbp">1,400,000</td><td class="price-usd">$15.56</td></tr>
+          <tr><td class="en">Makdous</td><td class="ar">مكدوس</td><td class="size">Large</td><td class="price-lbp">810,000</td><td class="price-usd">$9.00</td></tr>
+          <tr><td class="en">Makdous</td><td class="ar">مكدوس</td><td class="size">Small</td><td class="price-lbp">600,000</td><td class="price-usd">$6.67</td></tr>
+          <tr><td class="en">Debs Kharroub</td><td class="ar">دبس خروب</td><td class="size">Jar</td><td class="price-lbp">600,000</td><td class="price-usd">$6.67</td></tr>
+          <tr><td class="en">Olives</td><td class="ar">زيتون</td><td class="size">1 Kg</td><td class="price-lbp">530,000</td><td class="price-usd">$5.89</td></tr>
+          <tr><td class="en">Pickled Cucumber</td><td class="ar">كبيس خيار</td><td class="size">Jar</td><td class="price-lbp">360,000</td><td class="price-usd">$4.00</td></tr>
+          <tr><td class="en">Pickled Me2ti</td><td class="ar">كبيس مقتي</td><td class="size">Jar</td><td class="price-lbp">360,000</td><td class="price-usd">$4.00</td></tr>
+          <tr><td class="en">Grape Leaves</td><td class="ar">ورق عنب</td><td class="size">Jar</td><td class="price-lbp">320,000</td><td class="price-usd">$3.56</td></tr>
+          <tr><td class="en">Markouk Bread</td><td class="ar">مرقوق</td><td class="size">5 pcs</td><td class="price-lbp">110,000</td><td class="price-usd">$1.22</td></tr>
+          <tr><td class="en">Free Range Eggs</td><td class="ar">بيض بلدي</td><td class="size">6 pcs</td><td class="price-lbp">150,000</td><td class="price-usd">$1.67</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SYRUPS & LIQUIDS -->
+    <div class="menu-section">
+      <div class="menu-section__header">
+        <h2>Syrups &amp; Liquids</h2>
+        <span>شراب</span>
+      </div>
+      <table class="menu-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th class="ar">المنتج</th>
+            <th>Size</th>
+            <th class="num lbp-head">LBP</th>
+            <th class="num">USD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="en">Rose Syrup</td><td class="ar">شراب الورد</td><td class="size">500 ml</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Berry Syrup</td><td class="ar">شراب التوت</td><td class="size">500 ml</td><td class="price-lbp">720,000</td><td class="price-usd">$8.00</td></tr>
+          <tr><td class="en">Sage (Qasaeen)</td><td class="ar">قصعين</td><td class="size">500 ml</td><td class="price-lbp">810,000</td><td class="price-usd">$9.00</td></tr>
+          <tr><td class="en">Hosrom (Unripe Grapes)</td><td class="ar">حصرم</td><td class="size">500 ml</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Pomegranate Molasses</td><td class="ar">دبس رمان</td><td class="size">500 ml</td><td class="price-lbp">630,000</td><td class="price-usd">$7.00</td></tr>
+          <tr><td class="en">Orange Flower Water</td><td class="ar">ماء الزهر</td><td class="size">500 ml</td><td class="price-lbp">900,000</td><td class="price-usd">$10.00</td></tr>
+          <tr><td class="en">Rose Water</td><td class="ar">ماء الورد</td><td class="size">500 ml</td><td class="price-lbp">900,000</td><td class="price-usd">$10.00</td></tr>
+          <tr><td class="en">Arak</td><td class="ar">عرق بلدي</td><td class="size">500 ml</td><td class="price-lbp">1,080,000</td><td class="price-usd">$12.00</td></tr>
+          <tr><td class="en">Olive Oil</td><td class="ar">زيت زيتون</td><td class="size">500 ml</td><td class="price-lbp">720,000</td><td class="price-usd">$8.00</td></tr>
+          <tr><td class="en">Apple Cider Vinegar</td><td class="ar">خل تفاح</td><td class="size">500 ml</td><td class="price-lbp">360,000</td><td class="price-usd">$4.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="menu-footer">
+      <p><strong>El Balady</strong> &middot; Feytroun, Lebanon &middot; est. 1986</p>
+      <p>Orders &amp; weekly delivery: <a href="https://wa.me/+9613147849">03 147849</a> &middot; <a href="https://www.elbalady.com">www.elbalady.com</a></p>
+    </div>
+
+  </div>
+</body>
+</html>
